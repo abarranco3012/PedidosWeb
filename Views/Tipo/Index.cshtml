@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PedidosWeb.Models.Tipos>
+﻿@model IEnumerable<PedidosWeb.Models.Tipo>
 
 <hr />
 <h2>Cadastro de Tipos</h2>
@@ -12,9 +12,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
+
             <th>
 
             </th>
@@ -27,9 +25,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
+
             <td>
                 <a asp-action="Editar" asp-route-id="@item.Id">Editar</a>
                 <a asp-action="Remove" asp-route-id="@item.Id">Apagar</a>

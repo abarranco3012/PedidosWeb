@@ -9,19 +9,19 @@ using PedidosWeb.Services;
 
 namespace PedidosWeb.Controllers
 {
-    public class TiposController : Controller
+    public class TipoController : Controller
     {
-        private readonly TiposService _tiposService;
+        private readonly TipoService _tipoService;
 
-        public TiposController(TiposService tiposService)
+        public TipoController(TipoService tipoService)
         {
-            _tiposService = tiposService;
+            _tipoService = tipoService;
         }
 
         public IActionResult Index()
         {
             //List<Tipos> list = new List<Tipos>();
-            var list = _tiposService.FindAll();
+            var list = _tipoService.FindAll();
             return View(list);
         }
 
@@ -32,9 +32,9 @@ namespace PedidosWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Novo(Tipos tipos)
+        public IActionResult Novo(Tipo tipo)
         {
-            _tiposService.Insert(tipos);
+            _tipoService.Insert(tipo);
             return RedirectToAction(nameof(Index));
         }
 
@@ -45,7 +45,7 @@ namespace PedidosWeb.Controllers
                 return NotFound();
             }
 
-            var obj = _tiposService.FindById(id.Value);
+            var obj = _tipoService.FindById(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -58,7 +58,7 @@ namespace PedidosWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Remove(int id)
         {
-            _tiposService.Remove(id);
+            _tipoService.Remove(id);
             return RedirectToAction(nameof(Index));
         }
     }

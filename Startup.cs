@@ -42,8 +42,10 @@ namespace PedidosWeb
                       options.UseSqlServer(Configuration.GetConnectionString("PedidosWebContext"), builder => builder.MigrationsAssembly("PedidosWeb")));
 
             services.AddScoped<SeedingService>();
-            services.AddScoped<TiposService>();
+            services.AddScoped<TipoService>();
+            services.AddScoped<ProdutoService>();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

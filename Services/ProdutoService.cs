@@ -7,39 +7,36 @@ using System.Threading.Tasks;
 
 namespace PedidosWeb.Services
 {
-    public class TiposService
+    public class ProdutoService
     {
         private readonly PedidosWebContext _context;
 
-        public TiposService(PedidosWebContext context)
+        public ProdutoService(PedidosWebContext context)
         {
             _context = context;
         }
 
-        public List<Tipos> FindAll()
+        public List<Produto> FindAll()
         {
-            return _context.Tipos.ToList();
+            return _context.Produto.OrderBy(x => x.Nome).ToList();
         }
 
-        public void Insert(Tipos obj)
+        public void Insert(Produto obj)
         {
             _context.Add(obj);
             _context.SaveChanges();
         }
 
-        public Tipos FindById(int id)
+        public Produto FindById(int id)
         {
-            return _context.Tipos.FirstOrDefault(obj => obj.Id == id);
+            return _context.Produto.FirstOrDefault(obj => obj.Id == id);
         }
 
         public void Remove(int id)
         {
-            var obj = _context.Tipos.Find(id);
-            _context.Tipos.Remove(obj);
+            var obj = _context.Produto.Find(id);
+            _context.Produto.Remove(obj);
             _context.SaveChanges();
         }
-
-        // no Service de Produtos, colocar no Insert, antes de tudo:
-        // obj.Tipos = _context.Tipos.First();
     }
 }

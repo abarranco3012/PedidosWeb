@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PedidosWeb.Models
 {
-    public class Produtos
+    public class Produto
     {
         public int Id { get; set; }
         public string Nome { get; set; }
@@ -14,16 +14,16 @@ namespace PedidosWeb.Models
         public string Obs { get; set; }
         public int Durabilidade { get; set; }
         public string Arquivo { get; set; }
-        public Tipos Tipos { get; set; }
-        public int TiposId { get; set; }
+        public Tipo Tipo { get; set; }
+        public int TipoId { get; set; }
 
-        public Produtos()
+        public Produto()
         {
 
         }
 
-        public Produtos(int id, string nome, string descricao, double valorUnit, string obs, int durabilidade,
-            string arquivo, int tiposId)
+        public Produto(int id, string nome, string descricao, double valorUnit, string obs, int durabilidade,
+            string arquivo, int tipoId)
         {
             Id = id;
             Nome = nome;
@@ -32,7 +32,7 @@ namespace PedidosWeb.Models
             Obs = obs;
             Durabilidade = durabilidade;
             Arquivo = arquivo;
-            TiposId = tiposId;
+            TipoId = tipoId;
 
         }
 

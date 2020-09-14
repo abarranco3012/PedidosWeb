@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PedidosWeb.Models;
 using PedidosWeb.Models.ViewModels;
 using PedidosWeb.Services;
 
@@ -28,8 +29,16 @@ namespace PedidosWeb.Controllers
         public IActionResult Novo()
         {
             var tipos = _tipoService.FindAll();
-            var viewModel = new ProdutoFormViewModel { Tipos = tipos }
+            var viewModel = new ProdutoFormViewModel { Tipos = tipos };
             return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Novo(Produto produto)
+        {
+            _produtoService.Insert(produto);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

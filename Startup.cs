@@ -44,6 +44,9 @@ namespace PedidosWeb
             services.AddScoped<SeedingService>();
             services.AddScoped<TipoService>();
             services.AddScoped<ProdutoService>();
+            services.AddScoped<ClienteService>();
+            services.AddScoped<PedidoService>();
+            services.AddScoped<FilhoService>();
         }
 
 

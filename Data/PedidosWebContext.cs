@@ -13,5 +13,8 @@ namespace PedidosWeb.Data
 
         public DbSet<Tipo> Tipo { get; set; }
         public DbSet<Produto> Produto { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<Pedido> Pedido { get; set; }
+        public DbSet<Filho> Filho { get; set; }
     }
 }

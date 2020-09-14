@@ -39,7 +39,5 @@ namespace PedidosWeb.Services
             _context.SaveChanges();
         }
 
-        // no Service de Produtos, colocar no Insert, antes de tudo:
-        // obj.Tipos = _context.Tipos.First();
     }
 }

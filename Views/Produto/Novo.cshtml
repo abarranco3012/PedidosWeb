@@ -1,0 +1,40 @@
+﻿@model PedidosWeb.Models.ViewModels.ProdutoFormViewModel
+
+<h2>Novo Produto</h2>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Novo">
+            <div class="form-group">
+                <label asp-for="Produto.Nome" class="control-label"></label>
+                <input asp-for="Produto.Nome" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Descricao" class="control-label"></label>
+                <input asp-for="Produto.Descricao" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.ValorUnit" class="control-label"></label>
+                <input asp-for="Produto.ValorUnit" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Durabilidade" class="control-label"></label>
+                <input asp-for="Produto.Durabilidade" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.Obs" class="control-label"></label>
+                <input asp-for="Produto.Obs" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Produto.TipoId" class="control-label"></label>
+                <select asp-for="Produto.TipoId" asp-items="@(new SelectList(Model.Tipos,"Id","Nome"))" class="form-control"></select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Inserir" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

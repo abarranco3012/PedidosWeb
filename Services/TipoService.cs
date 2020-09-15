@@ -1,5 +1,7 @@
-﻿using PedidosWeb.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PedidosWeb.Data;
 using PedidosWeb.Models;
+using PedidosWeb.Services.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +39,24 @@ namespace PedidosWeb.Services
             var obj = _context.Tipo.Find(id);
             _context.Tipo.Remove(obj);
             _context.SaveChanges();
+        }
+
+        public void Editar(Tipo obj)
+        {
+            if (!_context.Tipo.Any(x => x.Id == obj.Id))
+            {
+                throw new NotFoundException("Id não encontrado !");
+            }
+
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
         }
 
     }

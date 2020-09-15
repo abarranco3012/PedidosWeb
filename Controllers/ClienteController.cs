@@ -1,23 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using PedidosWeb.Models;
 using PedidosWeb.Services;
 using PedidosWeb.Services.Exceptions;
 
 namespace PedidosWeb.Controllers
 {
-    public class TipoController : Controller
+    public class ClienteController : Controller
     {
-        private readonly TipoService _tipoService;
 
-        public TipoController(TipoService tipoService)
+        private readonly ClienteService  _clienteService;
+
+        public ClienteController(ClienteService clienteService)
         {
-            _tipoService = tipoService;
+            _clienteService = clienteService;
         }
 
         public IActionResult Index()
         {
-            //List<Tipos> list = new List<Tipos>();
-            var list = _tipoService.FindAll();
+            var list = _clienteService.FindAll();
             return View(list);
         }
 
@@ -28,9 +32,9 @@ namespace PedidosWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Novo(Tipo tipo)
+        public IActionResult Novo(Cliente cliente)
         {
-            _tipoService.Insert(tipo);
+            _clienteService.Insert(cliente);
             return RedirectToAction(nameof(Index));
         }
 
@@ -41,7 +45,7 @@ namespace PedidosWeb.Controllers
                 return NotFound();
             }
 
-            var obj = _tipoService.FindById(id.Value);
+            var obj = _clienteService.FindById(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -54,7 +58,7 @@ namespace PedidosWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Remove(int id)
         {
-            _tipoService.Remove(id);
+            _clienteService.Remove(id);
             return RedirectToAction(nameof(Index));
         }
 
@@ -65,7 +69,7 @@ namespace PedidosWeb.Controllers
                 return NotFound();
             }
 
-            var obj = _tipoService.FindById(id.Value);
+            var obj = _clienteService.FindById(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -81,7 +85,7 @@ namespace PedidosWeb.Controllers
                 return NotFound();
             }
 
-            var obj = _tipoService.FindById(id.Value);
+            var obj = _clienteService.FindById(id.Value);
             if (obj == null)
             {
                 return NotFound();
@@ -92,16 +96,16 @@ namespace PedidosWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Editar(int id, Tipo tipo)
+        public IActionResult Editar(int id, Cliente cliente)
         {
-            if (id != tipo.Id)
+            if (id != cliente.Id)
             {
                 return BadRequest();
             }
 
             try
             {
-                _tipoService.Editar(tipo);
+                _clienteService.Editar(cliente);
                 return RedirectToAction(nameof(Index));
             }
             catch (NotFoundException)

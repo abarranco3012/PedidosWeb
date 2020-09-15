@@ -23,9 +23,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Obs)
             </th>
-            @*<th>
+            <th>
                 Foto
-            </th>*@
+            </th>
             <th>
 
             </th>
@@ -50,9 +50,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Obs)
             </td>
-            @*<td>
-                <img src="~/images/pao_mel_pais.jpg">
-            </td>*@
+            <td>
+                <img src="~/images/@item.Arquivo">
+            </td>
             <td>
                 <a asp-action="Editar" asp-route-id="@item.Id">Editar</a>
                 <a asp-action="Detalhes" asp-route-id="@item.Id">Detalhes</a>

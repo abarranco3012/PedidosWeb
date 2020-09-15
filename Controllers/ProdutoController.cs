@@ -40,5 +40,45 @@ namespace PedidosWeb.Controllers
             _produtoService.Insert(produto);
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Remove(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _produtoService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Remove(int id)
+        {
+            _produtoService.Remove(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Detalhes(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _produtoService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
     }
 }

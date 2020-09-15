@@ -1,0 +1,19 @@
+﻿@model PedidosWeb.Models.Tipo
+
+<h2>Detalhes do Tipo</h2>
+<hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Editar" asp-route-id="@Model.Id" class="btn btn-default">Editar</a>
+    <a asp-action="Index">Voltar a lista</a>
+</div>

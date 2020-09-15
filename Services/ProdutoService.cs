@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace PedidosWeb.Services
 {
@@ -29,7 +30,8 @@ namespace PedidosWeb.Services
 
         public Produto FindById(int id)
         {
-            return _context.Produto.FirstOrDefault(obj => obj.Id == id);
+            // esse include faz o "join" das tabelas
+            return _context.Produto.Include(obj => obj.Tipo).FirstOrDefault(obj => obj.Id == id);
         }
 
         public void Remove(int id)

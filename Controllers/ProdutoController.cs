@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using PedidosWeb.Models;
 using PedidosWeb.Models.ViewModels;
 using PedidosWeb.Services;
+using PedidosWeb.Services.Exceptions;
 
 namespace PedidosWeb.Controllers
 {
@@ -79,6 +80,47 @@ namespace PedidosWeb.Controllers
             }
 
             return View(obj);
+        }
+
+        public IActionResult Editar(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _produtoService.FindById(id.Value);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Tipo> tipos = _tipoService.FindAll();
+            ProdutoFormViewModel viewModel = new ProdutoFormViewModel { Produto = obj, Tipos = tipos };
+            return View(viewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Editar(int id, Produto produto)
+        {
+            if (id != produto.Id)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _produtoService.Editar(produto);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
         }
     }
 }

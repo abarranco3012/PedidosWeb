@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using PedidosWeb.Services.Exceptions;
 
 namespace PedidosWeb.Services
 {
@@ -39,6 +40,24 @@ namespace PedidosWeb.Services
             var obj = _context.Produto.Find(id);
             _context.Produto.Remove(obj);
             _context.SaveChanges();
+        }
+
+        public void Editar(Produto obj)
+        {
+            if (!_context.Produto.Any(x => x.Id == obj.Id))
+            {
+                throw new NotFoundException("Id não encontrado !");
+            }
+
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
         }
     }
 }

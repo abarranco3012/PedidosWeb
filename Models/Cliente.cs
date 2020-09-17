@@ -9,10 +9,14 @@ namespace PedidosWeb.Models
     public class Cliente
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "{0} deve ser informado")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "{0} deve ter entre {2} e {1} caracteres")]
         public string Nome { get; set; }
 
+        [Required(ErrorMessage = "{0} deve ser informado")]
         [Display(Name = "E-Mail")]
         [DataType(DataType.EmailAddress)]
+        [EmailAddress(ErrorMessage = "Entre com um e-mail válido")]
         public string Email { get; set; }
         public string Endereco { get; set; }
         public string Numero { get; set; }
@@ -23,10 +27,13 @@ namespace PedidosWeb.Models
         public string Ddd { get; set; }
         public string Telefone { get; set; }
 
+        [Required(ErrorMessage = "Data de Nascimento deve ser informada")]
         [Display(Name = "Data de Nascimento")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")] // aqui no meu caso não precisaria, pois a localization está setada pro Brasil
         public DateTime DtNasc { get; set; }
+
+        [Display(Name = "Cônjuge")]
         public string Conjuge { get; set; }
         public string Obs { get; set; }
         public ICollection<Filho> Filhos { get; set; } = new List<Filho>();

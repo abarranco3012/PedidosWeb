@@ -34,6 +34,10 @@ namespace PedidosWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Novo(Cliente cliente)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(cliente);
+            }
             _clienteService.Insert(cliente);
             return RedirectToAction(nameof(Index));
         }
@@ -98,6 +102,11 @@ namespace PedidosWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Editar(int id, Cliente cliente)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(cliente);
+            }
+
             if (id != cliente.Id)
             {
                 return BadRequest();

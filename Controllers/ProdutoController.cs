@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using PedidosWeb.Models;
 using PedidosWeb.Models.ViewModels;
@@ -43,13 +45,13 @@ namespace PedidosWeb.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error),new { message = "Id não informado"});
             }
 
             var obj = _produtoService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" }); 
             }
 
             return View(obj);
@@ -67,13 +69,13 @@ namespace PedidosWeb.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não informado" });
             }
 
             var obj = _produtoService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             return View(obj);
@@ -83,13 +85,13 @@ namespace PedidosWeb.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não informado" });
             }
 
             var obj = _produtoService.FindById(id.Value);
             if (obj == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não encontrado" });
             }
 
             List<Tipo> tipos = _tipoService.FindAll();
@@ -102,7 +104,7 @@ namespace PedidosWeb.Controllers
         {
             if (id != produto.Id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = "Ids diferentes " });
             }
 
             try
@@ -110,14 +112,31 @@ namespace PedidosWeb.Controllers
                 _produtoService.Editar(produto);
                 return RedirectToAction(nameof(Index));
             }
-            catch (NotFoundException)
+            catch (NotFoundException e)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { e.Message });
             }
-            catch (DbConcurrencyException)
+            catch (DbConcurrencyException e)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { e.Message });
             }
+            // ou ao invés das duas exceções, pode usar ApplicationException:
+            //catch (ApplicationException e)
+            //{
+            //    return RedirectToAction(nameof(Error), new { e.Message });
+            //}
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+
+            return View(viewModel);
+
         }
     }
 }

@@ -10,8 +10,8 @@ using PedidosWeb.Data;
 namespace PedidosWeb.Migrations
 {
     [DbContext(typeof(PedidosWebContext))]
-    [Migration("20200914171640_Classes")]
-    partial class Classes
+    [Migration("20200917132311_Nova")]
+    partial class Nova
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,6 +199,8 @@ namespace PedidosWeb.Migrations
                     b.Property<string>("Ddd");
 
                     b.Property<DateTime>("DtNasc");
+
+                    b.Property<string>("Email");
 
                     b.Property<string>("Endereco");
 

@@ -198,6 +198,8 @@ namespace PedidosWeb.Migrations
 
                     b.Property<DateTime>("DtNasc");
 
+                    b.Property<string>("Email");
+
                     b.Property<string>("Endereco");
 
                     b.Property<string>("Nome");
